@@ -13,6 +13,15 @@ choco install wsl -y
 # Install JetBrains Nerd Font
 choco install jetbrains-mono-nerd-font -y
 
+# Install nvm
+choco install nvm -y
+
+# Install pyenv
+choco install pyenv-win -y
+
+# Install pnpm
+choco install pnpm -y
+
 # Generate SSH key
 # The SSH key will be stored in C:\Users\<YourUsername>\.ssh\id_rsa (private key) and C:\Users\<YourUsername>\.ssh\id_rsa.pub (public key)
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
@@ -28,3 +37,9 @@ if (-not (Test-Path $vsCodeProfilesDir)) {
 
 # Copy the profiles
 Copy-Item -Path "$env:TEMP\code-profiles\*.code-profile" -Destination $vsCodeProfilesDir
+
+# Clone the bash-config repository
+git clone https://github.com/davieduardo001/bash-config.git $env:TEMP\bash-config
+
+# Apply the PowerShell config
+Copy-Item -Path "$env:TEMP\bash-config\powershell.config" -Destination $PROFILE -Force
