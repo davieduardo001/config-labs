@@ -10,6 +10,9 @@ choco install vscode -y
 # Install WSL
 choco install wsl -y
 
+# Install JetBrains Nerd Font
+choco install jetbrains-mono-nerd-font -y
+
 # Generate SSH key
 # The SSH key will be stored in C:\Users\<YourUsername>\.ssh\id_rsa (private key) and C:\Users\<YourUsername>\.ssh\id_rsa.pub (public key)
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
