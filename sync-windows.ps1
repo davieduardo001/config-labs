@@ -27,7 +27,7 @@ choco install pnpm -y
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 # Clone the code-profiles repository
-git clone https://github.com/davieduardo001/code-profiles.git $env:TEMP\code-profiles
+git clone https://github.com/davieduardo001/code-profiles.git $env:USERPROFILE\configs\code-profiles
 
 # Create the VSCode profiles directory if it doesn't exist
 $vsCodeProfilesDir = "$env:APPDATA\Code\User\profiles"
@@ -36,10 +36,20 @@ if (-not (Test-Path $vsCodeProfilesDir)) {
 }
 
 # Copy the profiles
-Copy-Item -Path "$env:TEMP\code-profiles\*.code-profile" -Destination $vsCodeProfilesDir
+Copy-Item -Path "$env:USERPROFILE\configs\code-profiles\*.code-profile" -Destination $vsCodeProfilesDir
 
 # Clone the bash-config repository
-git clone https://github.com/davieduardo001/bash-config.git $env:TEMP\bash-config
+git clone https://github.com/davieduardo001/bash-config.git $env:USERPROFILE\configs\bash-config
 
 # Apply the PowerShell config
-Copy-Item -Path "$env:TEMP\bash-config\powershell.config" -Destination $PROFILE -Force
+Copy-Item -Path "$env:USERPROFILE\configs\bash-config\powershell.config" -Destination $PROFILE -Force
+
+# Download and install Gemini CLI
+$toolsDir = "C:\tools"
+if (-not (Test-Path $toolsDir)) {
+    New-Item -ItemType Directory -Path $toolsDir
+}
+$geminiCliPath = "$toolsDir\gemini.exe"
+$geminiCliUrl = "https://storage.googleapis.com/gemini-cli/releases/v0.1.0/gemini-cli-windows-amd64.exe" # Placeholder URL
+Invoke-WebRequest -Uri $geminiCliUrl -OutFile $geminiCliPath
+[System.Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';' + $toolsDir, [System.EnvironmentVariableTarget]::Machine)
